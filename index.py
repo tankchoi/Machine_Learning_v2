@@ -8,11 +8,11 @@ app = Flask(__name__)
 CORS(app)
 
 
-ridge_model = joblib.load(r'E:\MachineLearning\BE\ridge_regression_model.pkl')
-nn_model = joblib.load(r'E:\MachineLearning\BE\neural_network_model.pkl')
-lin_model = joblib.load(r'E:\MachineLearning\BE\linear_regression_model.pkl')
-scaler = joblib.load(r'E:\MachineLearning\BE\scaler.pkl')
-stacking_model = joblib.load(r'E:\MachineLearning\BE\stacking_model.pkl')
+ridge_model = joblib.load('ridge_regression_model.pkl')
+nn_model = joblib.load('neural_network_model.pkl')
+lin_model = joblib.load('linear_regression_model.pkl')
+scaler = joblib.load('scaler.pkl')
+stacking_model = joblib.load('stacking_model.pkl')
 
 @app.route('/')
 def hello_world():
