@@ -9,61 +9,61 @@ url = "https://archive.ics.uci.edu/ml/machine-learning-databases/auto-mpg/auto-m
 column_names = ['mpg', 'cylinders', 'displacement', 'horsepower', 'weight', 'acceleration', 'model_year', 'origin', 'car_name']
 data = pd.read_csv(url, sep='\s+', names=column_names, na_values='?', comment='\t')
 data['model_year'] = data['model_year'] + 1900
-# print("----------Kiểu dữ liệu----------")
-# data.info()
-# print("----------Số lượng giá trị duy nhất----------")
-# print(data.nunique().sort_values())
-# print("----------Tổng hợp thống kê mô tả----------")
-# print(data.describe())
+print("----------Kiểu dữ liệu----------")
+data.info()
+print("----------Số lượng giá trị duy nhất----------")
+print(data.nunique().sort_values())
+print("----------Tổng hợp thống kê mô tả----------")
+print(data.describe())
 
-# # Biểu đồ phân phối của biến mục tiêu
-# plt.figure(figsize=[8, 4])
-# sns.histplot(data["mpg"], color='g', kde=True, bins=30, edgecolor="black", linewidth=2)
-# plt.title('Distribution of MPG Values in the Auto MPG Dataset')
-# plt.xlabel('Miles per Gallon (MPG)')
-# plt.ylabel('Frequency')
-# plt.show()
+# Biểu đồ phân phối của biến mục tiêu
+plt.figure(figsize=[8, 4])
+sns.histplot(data["mpg"], color='g', kde=True, bins=30, edgecolor="black", linewidth=2)
+plt.title('Distribution of MPG Values in the Auto MPG Dataset')
+plt.xlabel('Miles per Gallon (MPG)')
+plt.ylabel('Frequency')
+plt.show()
 
-# # Trực quan hóa các cột số
-# nf = data.select_dtypes(include=['float64', 'int64']).columns.tolist()
+# Trực quan hóa các cột số
+nf = data.select_dtypes(include=['float64', 'int64']).columns.tolist()
 
-# # Vẽ boxplot cho các cột số
-# plt.figure(figsize=[15, 3 * math.ceil(len(nf) / 3)])
-# for i in range(len(nf)):
-#     plt.subplot(math.ceil(len(nf) / 3), 3, i + 1)
-#     data.boxplot(column=nf[i])
-#     plt.title(f'Boxplot of {nf[i]}', fontsize=10)
-#     plt.ylabel(nf[i])
-# plt.tight_layout()
-# plt.show()
+# Vẽ boxplot cho các cột số
+plt.figure(figsize=[15, 3 * math.ceil(len(nf) / 3)])
+for i in range(len(nf)):
+    plt.subplot(math.ceil(len(nf) / 3), 3, i + 1)
+    data.boxplot(column=nf[i])
+    plt.title(f'Boxplot of {nf[i]}', fontsize=10)
+    plt.ylabel(nf[i])
+plt.tight_layout()
+plt.show()
 
-# # Vẽ biểu đồ phân phối cho các cột số
-# plt.figure(figsize=[15, 3 * math.ceil(len(nf) / 3)])
-# for i in range(len(nf)):
-#     plt.subplot(math.ceil(len(nf) / 3), 3, i + 1)
-#     sns.histplot(data[nf[i]], kde=True, bins=10, color=np.random.rand(3,), edgecolor="black", linewidth=2)
-#     plt.title(f'Distribution of {nf[i]}', fontsize=10)
-#     plt.xlabel(nf[i])
-#     plt.ylabel('Frequency')
-# plt.tight_layout()
-# plt.show()
+# Vẽ biểu đồ phân phối cho các cột số
+plt.figure(figsize=[15, 3 * math.ceil(len(nf) / 3)])
+for i in range(len(nf)):
+    plt.subplot(math.ceil(len(nf) / 3), 3, i + 1)
+    sns.histplot(data[nf[i]], kde=True, bins=10, color=np.random.rand(3,), edgecolor="black", linewidth=2)
+    plt.title(f'Distribution of {nf[i]}', fontsize=10)
+    plt.xlabel(nf[i])
+    plt.ylabel('Frequency')
+plt.tight_layout()
+plt.show()
 
-# # Kiểm tra trùng lặp
-# rs, cs = data.shape
-# data.drop_duplicates(inplace=True)
-# new_rs, new_cs = data.shape
-# if (new_rs, new_cs) == (rs, cs):
-#     print('Bộ dữ liệu không có bất kỳ bản sao nào')
-# else:
-#     duplicates_removed = rs - new_rs
-#     print(f'Số lượng bản sao đã loại bỏ: {duplicates_removed}')
+# Kiểm tra trùng lặp
+rs, cs = data.shape
+data.drop_duplicates(inplace=True)
+new_rs, new_cs = data.shape
+if (new_rs, new_cs) == (rs, cs):
+    print('Bộ dữ liệu không có bất kỳ bản sao nào')
+else:
+    duplicates_removed = rs - new_rs
+    print(f'Số lượng bản sao đã loại bỏ: {duplicates_removed}')
 
 
-# # Kiểm tra và thống kê các giá trị null
-# nvc = pd.DataFrame(data.isnull().sum().sort_values(),
-# columns=['Tổng số giá trị Null'])
-# nvc['Tỷ lệ phần trăm'] = round(nvc['Tổng số giá trị Null'] / data.shape[0], 3) * 100
-# print(nvc)
+# Kiểm tra và thống kê các giá trị null
+nvc = pd.DataFrame(data.isnull().sum().sort_values(),
+columns=['Tổng số giá trị Null'])
+nvc['Tỷ lệ phần trăm'] = round(nvc['Tổng số giá trị Null'] / data.shape[0], 3) * 100
+print(nvc)
 
 
 # Loại bỏ các giá trị ngoại lai

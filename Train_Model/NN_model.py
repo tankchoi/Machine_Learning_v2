@@ -86,13 +86,7 @@ results = pd.DataFrame({
 
 print("Kết quả lỗi, MAE và R^2:")
 print(results)
-sample_input = np.array([[8, 307.0, 130.0, 3504.0, 12.0, 1970, 1]])  # Replace with appropriate values
-sample_input_scaled = scaler.transform(sample_input)
 
-# Predicting with the trained model
-sample_prediction = model.predict(sample_input_scaled)
-
-print("Dự đoán cho mẫu dữ liệu:", sample_prediction)
 # Vẽ biểu đồ dự đoán so với giá trị thực
 plt.figure(figsize=(18, 6))
 

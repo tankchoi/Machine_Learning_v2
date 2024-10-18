@@ -92,12 +92,7 @@ results = pd.DataFrame({
 print("Kết quả lỗi, MAE và R^2:")
 print(results)
 
-# Dự đoán cho một mẫu dữ liệu
-sample_input = np.array([[8, 307.0, 130.0, 3504.0, 12.0, 1970, 1]])  # Thay thế bằng giá trị phù hợp
-sample_input_scaled = scaler.transform(sample_input)  # Chuẩn hóa dữ liệu mẫu
-sample_prediction = stacked_model.predict(sample_input_scaled)
 
-print("Dự đoán cho mẫu dữ liệu:", sample_prediction)
 
 # Vẽ biểu đồ dự đoán so với giá trị thực cho dữ liệu train, validation và test
 plt.figure(figsize=(18, 6))
