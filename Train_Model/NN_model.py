@@ -5,6 +5,7 @@ from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 from sklearn.neural_network import MLPRegressor
 import numpy as np
 import matplotlib.pyplot as plt
+import joblib
 
 # Tải dữ liệu Auto MPG với tên cột đầy đủ
 url = "https://archive.ics.uci.edu/ml/machine-learning-databases/auto-mpg/auto-mpg.data"
@@ -13,7 +14,7 @@ data = pd.read_csv(url, sep='\s+', names=column_names, na_values='?', comment='\
 
 # Xử lý dữ liệu thiếu
 data = data.dropna()
-
+# Sao chép dữ liệu để xử lý ngoại lệ
 data1 = data.copy()
 
 # Xác định các đặc trưng số
@@ -53,9 +54,15 @@ X_test = scaler.transform(X_test)
 
 # Xây dựng mô hình MLPRegressor
 model = MLPRegressor(hidden_layer_sizes=(64, 64), activation='relu', solver='adam', max_iter=1000, random_state=42)
-
 # Huấn luyện mô hình
 model.fit(X_train, y_train)
+
+# In trọng số (weights) và giá trị bias (intercepts)
+print("\nTrọng số và giá trị bias cho từng lớp:")
+for i, (weights, biases) in enumerate(zip(model.coefs_, model.intercepts_)):
+    print(f"Lớp {i + 1}:")
+    print(f"  Trọng số (weights):\n{weights}")
+    print(f"  Giá trị bias (intercepts):\n{biases}")
 
 # Dự đoán trên tập train, valid và test
 y_train_pred = model.predict(X_train)
@@ -117,8 +124,17 @@ plt.title('Dữ liệu Test')
 plt.tight_layout()
 plt.show()
 
+# Vẽ đồ thị hàm mất mát
+plt.figure(figsize=(10, 5))
+plt.plot(model.loss_curve_)
+plt.title('Giá trị hàm mất mát theo số vòng lặp')
+plt.xlabel('Số vòng lặp')
+plt.ylabel('Giá trị hàm mất mát')
+plt.grid()
+plt.show()
+
 import joblib
-neural_network_model_filename = r'E:\MachineLearning\BE\neural_network_model.pkl'
-scaler_filename = r'E:\MachineLearning\BE\scaler.pkl'
+neural_network_model_filename = r'../neural_network_model.pkl'
+scaler_filename = r'../scaler.pkl'
 joblib.dump(model, neural_network_model_filename)
 joblib.dump(scaler, scaler_filename)
